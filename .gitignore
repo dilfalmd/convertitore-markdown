@@ -1,0 +1,28 @@
+# Ambiente Python e motore (PyInstaller)
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.spec
+build/
+dist/
+
+# Node
+node_modules/
+
+# Tauri / Rust
+src-tauri/target/
+src-tauri/gen/
+src-tauri/binaries/
+
+# File di sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+*.lnk
+
+# Editor e IDE
+.vscode/
+.idea/
+*.swp
+*~

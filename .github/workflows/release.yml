@@ -1,0 +1,108 @@
+# Compila gli installer di Convertitore Markdown per Windows, macOS e Linux
+# e li carica in una release GitHub in bozza.
+#
+# Si avvia da solo quando si pubblica un tag che comincia per "v" (per esempio v1.0.0)
+# oppure a mano dalla scheda "Actions" del repository.
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+# Serve il permesso di scrittura per creare la release e caricarci i file.
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Compila (${{ matrix.nome }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - nome: Windows x64
+            os: windows-latest
+            target: x86_64-pc-windows-msvc
+          - nome: macOS Apple Silicon
+            os: macos-latest
+            target: aarch64-apple-darwin
+          - nome: Linux x64
+            os: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Scarica il codice
+        uses: actions/checkout@v7
+
+      # Dipendenze di sistema di Tauri v2 su Linux.
+      - name: Installa le dipendenze di sistema (solo Linux)
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            curl \
+            file \
+            wget \
+            patchelf \
+            libssl-dev \
+            libxdo-dev \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev
+
+      - name: Installa Python 3.12
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: |
+            engine/requirements.txt
+            engine/requirements-dev.txt
+
+      - name: Installa Node 20
+        uses: actions/setup-node@v7
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Installa Rust stabile
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Cache di Cargo
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
+      # Il motore Python viene compilato con PyInstaller e finisce in
+      # src-tauri/binaries/convertitore-engine-<target-triple>[.exe],
+      # da dove Tauri lo include nell'app come "sidecar".
+      - name: Installa le dipendenze Python
+        run: python -m pip install -r engine/requirements.txt -r engine/requirements-dev.txt
+
+      - name: Compila il motore Python (sidecar)
+        run: python engine/build_engine.py
+
+      - name: Installa le dipendenze Node
+        run: npm ci
+
+      - name: Compila l'app e crea la release in bozza
+        uses: tauri-apps/tauri-action@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # v__VERSION__ viene sostituito con la versione di tauri.conf.json.
+          tagName: v__VERSION__
+          releaseName: 'Convertitore Markdown v__VERSION__'
+          releaseBody: |
+            Scarica l'installer adatto al tuo sistema dall'elenco qui sotto.
+            L'app non è firmata: vedi la sezione «Scarica» del README per le conferme
+            richieste da Windows (SmartScreen) e macOS (Gatekeeper).
+          releaseDraft: true
+          prerelease: false
+          args: --target ${{ matrix.target }}

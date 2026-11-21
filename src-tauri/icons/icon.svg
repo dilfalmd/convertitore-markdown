@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="sfondo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34508f"/>
+      <stop offset="1" stop-color="#1a2547"/>
+    </linearGradient>
+    <linearGradient id="foglio" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e9edf7"/>
+    </linearGradient>
+  </defs>
+  <!-- Sfondo: quadrato arrotondato -->
+  <rect x="64" y="64" width="896" height="896" rx="208" fill="url(#sfondo)"/>
+  <!-- Foglio con angolo piegato -->
+  <path d="M272 176 H624 L752 304 V848 H272 Z" fill="url(#foglio)"/>
+  <path d="M624 176 V304 H752 Z" fill="#b7c3e0"/>
+  <!-- Righe di testo -->
+  <rect x="327" y="346" width="300" height="28" rx="14" fill="#c5cce0"/>
+  <rect x="327" y="410" width="376" height="28" rx="14" fill="#c5cce0"/>
+  <!-- Simbolo M e freccia in giù (Markdown) -->
+  <g fill="none" stroke="#1f2d57" stroke-width="56" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M327 720 V510 L437 628 L547 510 V720"/>
+    <path d="M642 510 V700"/>
+    <path d="M582 640 L642 704 L702 640"/>
+  </g>
+</svg>

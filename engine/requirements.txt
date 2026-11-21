@@ -1,0 +1,20 @@
+# Dipendenze del motore di conversione (Python 3.12 o successivo).
+# Installa con:  python -m pip install -r engine/requirements.txt
+markitdown[docx,xlsx,pptx,pdf]==0.1.9
+pymupdf==2.1
+
+# Librerie usate da MarkItDown per i formati supportati (bloccate per build riproducibili)
+beautifulsoup4==4.15.0
+charset-normalizer==3.5.2
+defusedxml==0.7.1
+lxml==6.1.3
+magika==0.6.2
+mammoth==1.13.0
+markdownify==1.2.3
+numpy==2.5.3
+onnxruntime==1.30.0
+openpyxl==3.1.5
+pandas==3.0.6
+pdfminer.six==20260107
+pdfplumber==0.11.10
+python-pptx==1.0.2
