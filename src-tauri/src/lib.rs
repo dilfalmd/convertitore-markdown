@@ -6,7 +6,7 @@ use std::time::Duration;
 use tauri_plugin_opener::OpenerExt;
 
 /// Repository GitHub da cui si leggono le release (formato `utente/repository`).
-const REPO: &str = "dilfal/convertitore-markdown";
+const REPO: &str = "dilfalmd/convertitore-markdown";
 
 /// Nome del motore di conversione (sidecar compilato con PyInstaller).
 const ENGINE_NAME: &str = "convertitore-engine";

@@ -3,7 +3,7 @@
 Trascina un documento nella finestra e ottieni il suo testo in Markdown, pulito e pronto da modificare. Tutto resta sul tuo computer.
 
 [![Licenza: AGPL v3 o successiva](https://img.shields.io/badge/licenza-AGPL--3.0--or--later-blue.svg)](LICENSE)
-[![Ultima release](https://img.shields.io/github/v/release/dilfal/convertitore-markdown?include_prereleases&label=release)](https://github.com/dilfal/convertitore-markdown/releases)
+[![Ultima release](https://img.shields.io/github/v/release/dilfalmd/convertitore-markdown?include_prereleases&label=release)](https://github.com/dilfalmd/convertitore-markdown/releases)
 ![Piattaforme](https://img.shields.io/badge/piattaforme-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
 
 ![Schermata di Convertitore Markdown](docs/screenshot.png)
@@ -37,7 +37,7 @@ I file audio non sono supportati. I PDF che contengono solo immagini di pagine (
 
 ## Scarica
 
-Le versioni pronte da installare sono nella pagina [Releases](https://github.com/dilfal/convertitore-markdown/releases): scegli il file per il tuo sistema.
+Le versioni pronte da installare sono nella pagina [Releases](https://github.com/dilfalmd/convertitore-markdown/releases): scegli il file per il tuo sistema.
 
 | Sistema | File |
 | --- | --- |
